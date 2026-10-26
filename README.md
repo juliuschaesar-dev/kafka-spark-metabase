@@ -21,7 +21,7 @@ Each micro-batch is written to `coingecko_markets_staging`, then merged into `co
 ## Prerequisites
 
 - Docker and Docker Compose v2
-- A free CoinGecko **Demo API key** (https://www.coingecko.com/en/api)
+- Optional: a free CoinGecko **Demo API key** (https://www.coingecko.com/en/api), recommended for reliable rate limits
 - Ports `3000`, `5432`, `8080`, `8081`, `9092` free on the host
 
 ## Configuration
@@ -74,8 +74,6 @@ One Spark job ([consumer/consumer.py](consumer/consumer.py)) writes every micro-
 Each batch is written with Spark's JDBC writer to a staging table (`coingecko_markets_staging`), then merged into the two tables with SQL. Staging only holds the latest batch (it is overwritten every time, has no primary key and may contain duplicates); it exists because Spark's JDBC writer cannot upsert. Do not query it from dashboards.
 
 > **Offsets:** the first run starts at the **earliest** offset, so every record already in the topic is loaded (this assumes the topic only holds records written with the current Avro schema; older ones cannot be decoded). Afterwards the job resumes from its checkpoint (volume `spark-checkpoint`). The job reads the latest schema from Schema Registry at startup; after changing the Avro schema, rebuild the producer and restart `consumer`.
->
-> **New columns:** the job does not evolve tables automatically. When you add a field to the schema, also add it to `COLUMNS` and the DDL in [consumer/consumer.py](consumer/consumer.py) and `ALTER TABLE` the existing tables.
 
 ## Verifying the pipeline
 

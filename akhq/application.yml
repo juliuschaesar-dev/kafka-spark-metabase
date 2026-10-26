@@ -1,0 +1,11 @@
+akhq:
+  connections:
+    docker-kafka-server:
+      properties:
+        bootstrap.servers: "kafka:29092"
+      schema-registry:
+        url: "http://schema-registry:8081"
+
+micronaut:
+  server:
+    port: 8080

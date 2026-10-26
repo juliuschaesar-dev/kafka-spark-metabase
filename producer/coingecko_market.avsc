@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "name": "CoinMarket",
+  "namespace": "com.coingecko",
+  "doc": "Flat snapshot of one coin from the CoinGecko /coins/markets endpoint",
+  "fields": [
+    {"name": "id", "type": "string"},
+    {"name": "symbol", "type": "string"},
+    {"name": "name", "type": "string"},
+    {"name": "currency", "type": ["null", "string"], "default": null, "doc": "Quote currency of the price fields, e.g. USD"},
+    {"name": "current_price", "type": ["null", "double"], "default": null},
+    {"name": "market_cap", "type": ["null", "double"], "default": null},
+    {"name": "total_volume", "type": ["null", "double"], "default": null},
+    {"name": "market_cap_rank", "type": ["null", "int"], "default": null},
+    {"name": "fully_diluted_valuation", "type": ["null", "double"], "default": null},
+    {"name": "high_24h", "type": ["null", "double"], "default": null},
+    {"name": "low_24h", "type": ["null", "double"], "default": null},
+    {"name": "price_change_24h", "type": ["null", "double"], "default": null},
+    {"name": "price_change_percentage_24h", "type": ["null", "double"], "default": null},
+    {"name": "market_cap_change_24h", "type": ["null", "double"], "default": null},
+    {"name": "market_cap_change_percentage_24h", "type": ["null", "double"], "default": null},
+    {"name": "last_updated", "type": "string", "doc": "ISO-8601 timestamp reported by CoinGecko"}
+  ]
+}
